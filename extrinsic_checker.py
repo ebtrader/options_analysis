@@ -14,13 +14,15 @@ start = timeit.default_timer()
 #https://aroussi.com/post/download-options-data
 
 #prompt for a symbol
-symbol = input('What is your stock ticker?:  ')
-exp_dates = input('What is you expiration?(yyyy-mm-dd):  ')
-selected_strike = int(input('What is your strike?:  '))
-threshold = float(input('What is your extrinsic threshold for rolling?:  '))
-# min_delta = float(input('what is the minimum delta(e.g. 0.7 is 70%)?:   '))
-# min_yield = float(input('what is the minimum weekly yield (e.g. .01 is 1%)?:   '))
-# max_expiration = input('what is the latest expiration?(mm-dd-yyyy):   ')
+# symbol = input('What is your stock ticker?:  ')
+# exp_dates = input('What is you expiration?(yyyy-mm-dd):  ')
+# selected_strike = int(input('What is your strike?:  '))
+# threshold = float(input('What is your extrinsic threshold for rolling?:  '))
+
+symbol = 'TQQQ'
+exp_dates = '2021-06-18'
+selected_strike = 105
+threshold = 0.8
 
 
 # symbol = 'TQQQ'
@@ -53,7 +55,7 @@ hist = ticker.history(period="3d", interval = "5m")
 #print(hist)
 df_history = pd.DataFrame(hist)
 recent_value = df_history['Close'].iloc[-1]
-print(f'recent price = {recent_value}')
+print(f'recent price = {recent_value:.2f}')
 
 df['recent_px'] = recent_value
 
@@ -88,7 +90,7 @@ print(selected_row)
 
 selected_extrinsic = selected_row['extrinsic_value'].values[0]
 
-print(f'current extrinsic = {selected_extrinsic}')
+print(f'current extrinsic = {selected_extrinsic:.2f}')
 
 if selected_extrinsic > threshold:
     print('extrinsic is still too high!')
